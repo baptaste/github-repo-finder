@@ -10,13 +10,20 @@ body {
 .app {
   background-color: vars.$secondaryColor;
   max-width: 1100px;
-  height: 90vh;
+  // height: 90vh;
   margin: 2rem auto 0;
   border-radius: 10px;
 }
 
-// HEADER & SEARCHBAR 
+// HEADER & SEARCHBAR
+.sitename {
+  position: absolute;
+  right: 31%;
+  top: 15px;
+  font-size: 1.3rem;
+} 
 .search-header {
+  position: relative;
   width: vars.$componentsWidth;
   text-align: center;
   margin: 0 auto;
@@ -28,8 +35,9 @@ body {
   }
 
   &__form {
+    width: vars.$componentsWidth;
     border-radius: 3px;
-    margin-bottom: 1em;
+    margin: 0 auto 1em !important;
     background-color: vars.$lightColor;
     box-shadow: vars.$boxShadow;
     -webkit-box-shadow: vars.$webkit-boxShadow;
@@ -67,6 +75,13 @@ body {
   }
 }
 
+.nav {
+  width: vars.$componentsWidth;
+  margin: 0 auto 1em !important;
+  box-shadow: vars.$boxShadow !important;
+  -webkit-box-shadow: vars.$webkit-boxShadow !important;
+}
+
 .repos {
   display: flex;
   flex-wrap: wrap;
@@ -88,7 +103,9 @@ body {
 
 .faq {
   width: vars.$componentsWidth;
+  height: 470px;
   margin: 1em auto;
+
 
   &__block {
     margin-bottom: 1rem;

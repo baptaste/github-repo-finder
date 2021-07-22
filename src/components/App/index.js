@@ -7,11 +7,11 @@ import axios from 'axios';
 import '../../styles/index.scss';
 import 'semantic-ui-css/semantic.min.css';
 
+import Header from '../Header';
 import SearchBar from '../SearchBar';
 import Message from '../Message';
 import Repos from '../Repos';
 import Faq from '../Faq';
-import Nav from '../Nav';
 
 // import data from '../../data/repos';
 
@@ -72,19 +72,19 @@ const App = () => {
 
   return (
     <div className="app">
-      <SearchBar
-        searchValue={searchValues}
-        onSearchChange={handleSearchChange}
-        onSearchSubmit={handleSearchSubmit}
-      />
-      <Nav />
-      <Message
-        repoName={currentRepoName}
-        nbRepos={totalReposCount}
-        isError={isError}
-        errorMessage={requestError}
-      />
+      <Header />
       <Route exact path="/">
+        <SearchBar
+          searchValue={searchValues}
+          onSearchChange={handleSearchChange}
+          onSearchSubmit={handleSearchSubmit}
+        />
+        <Message
+          repoName={currentRepoName}
+          nbRepos={totalReposCount}
+          isError={isError}
+          errorMessage={requestError}
+        />
         <Repos repos={baseRepos} />
       </Route>
       <Route path="/faq">

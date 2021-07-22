@@ -18,6 +18,7 @@ function Nav() {
   return (
     <Menu
       items={items}
+      className="nav"
     >
       {items.map((item) => (
         <Menu.Item
