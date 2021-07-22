@@ -1,10 +1,11 @@
 // == Import npm
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // == Import
 import '../../styles/index.scss';
 import 'semantic-ui-css/semantic.min.css';
+
 import SearchBar from '../SearchBar';
 import Message from '../Message';
 import Repos from '../Repos';
@@ -13,13 +14,13 @@ import Repos from '../Repos';
 
 // == Composant
 // const reposData = data.items;
-const baseUrl = 'https://api.github.com/search/repositories?q';
+const baseUrl = 'https://api.github.com/search/repositories?q=';
 
 const App = () => {
   const [searchValues, setSearchValues] = useState([]);
   const [baseRepos, setBaseRepos] = useState([]);
-  const [totalReposCount, setTotalReposCount] = useState(0);
-  const [currentRepoName, setCurrentRepoName] = useState('react');
+  const [totalReposCount, setTotalReposCount] = useState(1028313);
+  const [currentRepoName, setCurrentRepoName] = useState('javascript');
 
   const [isError, setIsError] = useState(false);
   const [requestError, setRequestError] = useState('error');
@@ -49,6 +50,22 @@ const App = () => {
     // reset searchValue's state
     setSearchValues([]);
   };
+
+  const setDefaultReposOnLoad = async () => {
+    try {
+      const defaultRepos = await axios.get(`${baseUrl}javascript`);
+      setBaseRepos(defaultRepos.data.items);
+    }
+    catch (error) {
+      toggleError();
+      setRequestError(`Request failed with status code ${error.response.status}`);
+      throw new Error('Request failed', error);
+    }
+  };
+
+  useEffect(() => {
+    setDefaultReposOnLoad();
+  }, []);
 
   return (
     <div className="app">
