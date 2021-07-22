@@ -22,7 +22,7 @@ const Repo = ({
 Repo.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   html_url: PropTypes.string.isRequired,
   owner: PropTypes.shape({
     login: PropTypes.string.isRequired,

@@ -3,14 +3,17 @@ import { Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import githubLogo from '../../assets/images/logo-github.png';
 
-const SearchBar = ({ searchValue, onSearchChange }) => (
+const SearchBar = ({ searchValue, onSearchChange, onSearchSubmit }) => (
   <header className="search-header">
     <img
       src={githubLogo}
       alt="github logo"
       className="search-header__logo"
     />
-    <form className="search-header__form">
+    <form
+      className="search-header__form"
+      onSubmit={onSearchSubmit}
+    >
       <Input
         icon="search"
         placeholder="Rechercher un repo..."
@@ -23,8 +26,9 @@ const SearchBar = ({ searchValue, onSearchChange }) => (
 );
 
 SearchBar.propTypes = {
-  searchValue: PropTypes.arrayOf(PropTypes.shape().isRequired).isRequired,
+  searchValue: PropTypes.string.isRequired,
   onSearchChange: PropTypes.func.isRequired,
+  onSearchSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

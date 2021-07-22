@@ -15,9 +15,16 @@ const reposData = data.items;
 
 const App = () => {
   const [searchValues, setSearchValues] = useState([]);
+  const [baseRepos, setBaseRepos] = useState([]);
 
   const handleSearchChange = (e) => {
     setSearchValues(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    console.log('Submitted!');
+    setBaseRepos(searchValues);
   };
 
   return (
@@ -25,6 +32,7 @@ const App = () => {
       <SearchBar
         searchValue={searchValues}
         onSearchChange={handleSearchChange}
+        onSearchSubmit={handleSearchSubmit}
       />
       <Message />
       <Repos repos={reposData} />
