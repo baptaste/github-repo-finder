@@ -1,5 +1,6 @@
 // == Import npm
 import React, { useState } from 'react';
+import axios from 'axios';
 
 // == Import
 import '../../styles/index.scss';
@@ -12,6 +13,7 @@ import data from '../../data/repos';
 
 // == Composant
 const reposData = data.items;
+const baseUrl = 'https://api.github.com/search/repositories?q=';
 
 const App = () => {
   const [searchValues, setSearchValues] = useState([]);
@@ -21,10 +23,17 @@ const App = () => {
     setSearchValues(e.target.value);
   };
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitted!');
-    setBaseRepos(searchValues);
+    try {
+      const repoQuery = await axios.get(`${baseUrl}${searchValues}`);
+      setBaseRepos(repoQuery.data.items);
+    }
+    catch (error) {
+      throw new Error('Request failed', error);
+    }
+    // reset searchValue's state
+    setSearchValues([]);
   };
 
   return (
@@ -35,7 +44,7 @@ const App = () => {
         onSearchSubmit={handleSearchSubmit}
       />
       <Message />
-      <Repos repos={reposData} />
+      <Repos repos={baseRepos} />
     </div>
   );
 };
