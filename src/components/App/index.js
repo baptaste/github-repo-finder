@@ -1,5 +1,6 @@
 // == Import npm
 import React, { useState, useEffect } from 'react';
+import { Route } from 'react-router-dom';
 import axios from 'axios';
 
 // == Import
@@ -9,6 +10,7 @@ import 'semantic-ui-css/semantic.min.css';
 import SearchBar from '../SearchBar';
 import Message from '../Message';
 import Repos from '../Repos';
+import Faq from '../Faq';
 
 // import data from '../../data/repos';
 
@@ -80,7 +82,12 @@ const App = () => {
         isError={isError}
         errorMessage={requestError}
       />
-      <Repos repos={baseRepos} />
+      <Route exact path="/">
+        <Repos repos={baseRepos} />
+      </Route>
+      <Route path="/faq">
+        <Faq />
+      </Route>
     </div>
   );
 };
