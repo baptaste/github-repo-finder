@@ -28,15 +28,17 @@ body {
   }
 
   &__form {
-    border: 1px solid vars.$primaryColor;
     border-radius: 3px;
     margin-bottom: 1em;
     background-color: vars.$lightColor;
+    box-shadow: vars.$boxShadow;
+    -webkit-box-shadow: vars.$webkit-boxShadow;
 
     // input & search icon
     .ui.input {
       width: 100%;
       padding: 1em 1.5em;
+      font-size: vars.$global-fontSize;
     
       &.focus>input {
         padding-left: 3em;
@@ -54,9 +56,11 @@ body {
   margin: 0 auto;
   padding: 1em 1.5em;
   text-align: left;
-  border: 1px solid vars.$primaryColor;
+  font-size: vars.$global-fontSize;
   border-radius: 3px;
   background-color: vars.$lightColor;
+  box-shadow: vars.$boxShadow;
+  -webkit-box-shadow: vars.$webkit-boxShadow;
 
   &__error {
     color: rgb(241, 58, 12);
@@ -66,15 +70,20 @@ body {
 .repos {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: vars.$componentsWidth;
   height: 470px;
-  background-color: vars.$lightColor;
   margin: 1em auto;
-  padding: 1.5em 2.3em;
+  padding: .5em 1em;
   border-radius: 10px;
   overflow-y: scroll;
+}
+
+.repo {
+  width: 290px;
+  height: 450px;
+  margin: 0 0 3em 0 !important;
 }
 
 

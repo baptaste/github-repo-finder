@@ -51,7 +51,7 @@ const App = () => {
     setSearchValues([]);
   };
 
-  const setDefaultReposOnLoad = async () => {
+  const getDefaultReposOnLoad = async () => {
     try {
       const defaultRepos = await axios.get(`${baseUrl}javascript`);
       setBaseRepos(defaultRepos.data.items);
@@ -64,7 +64,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    setDefaultReposOnLoad();
+    getDefaultReposOnLoad();
   }, []);
 
   return (
