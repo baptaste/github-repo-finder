@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Repo from '../Repo';
 
-const Repos = ({ repos }) => (
+const Repos = ({ repos, handleShowMoreClick }) => (
   <main className="repos">
     {repos.map((repo) => (
       <Repo
@@ -10,6 +10,13 @@ const Repos = ({ repos }) => (
         {...repo}
       />
     ))};
+    <button
+      type="button"
+      onClick={handleShowMoreClick}
+      className="repos__show-more-btn"
+    >
+      Plus de résultats
+    </button>
   </main>
 );
 
@@ -26,6 +33,7 @@ Repos.propTypes = {
       }).isRequired,
     }).isRequired,
   ).isRequired,
+  handleShowMoreClick: PropTypes.func.isRequired,
 };
 
 export default Repos;
