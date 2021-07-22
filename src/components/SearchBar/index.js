@@ -12,7 +12,6 @@ const SearchBar = () => (
         focus
       />
     </form>
-    <div className="search-header__results">La recherche a donné 5647496 résulats</div>
   </header>
 );
 

@@ -17,7 +17,7 @@ body {
 
 // HEADER & SEARCHBAR 
 .search-header {
-  width: 1000px;
+  width: vars.$componentsWidth;
   text-align: center;
   margin: 0 auto;
 
@@ -47,14 +47,30 @@ body {
       }
     }
   }
+}
 
-  &__results {
-    padding: 1em 1.5em;
-    text-align: left;
-    border: 1px solid vars.$primaryColor;
-    border-radius: 3px;
-    background-color: vars.$lightColor;
-  }
+.message {
+  width: vars.$componentsWidth;
+  margin: 0 auto;
+  padding: 1em 1.5em;
+  text-align: left;
+  border: 1px solid vars.$primaryColor;
+  border-radius: 3px;
+  background-color: vars.$lightColor;
+}
+
+.repos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: vars.$componentsWidth;
+  height: 470px;
+  background-color: vars.$lightColor;
+  margin: 1em auto;
+  padding: 1.5em 2.3em;
+  border-radius: 10px;
+  overflow-y: scroll;
 }
 
 
