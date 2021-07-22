@@ -11,6 +11,7 @@ import SearchBar from '../SearchBar';
 import Message from '../Message';
 import Repos from '../Repos';
 import Faq from '../Faq';
+import Nav from '../Nav';
 
 // import data from '../../data/repos';
 
@@ -76,6 +77,7 @@ const App = () => {
         onSearchChange={handleSearchChange}
         onSearchSubmit={handleSearchSubmit}
       />
+      <Nav />
       <Message
         repoName={currentRepoName}
         nbRepos={totalReposCount}
