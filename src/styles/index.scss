@@ -1,7 +1,62 @@
 @use 'reset';
 @use 'vars';
 
+// GLOBALS
 body {
   font-family: sans-serif;
-  background-color: #c0ffee;
+  background-color: vars.$primaryColor;
 }
+
+.app {
+  background-color: vars.$secondaryColor;
+  max-width: 1100px;
+  height: 90vh;
+  margin: 2rem auto 0;
+  border-radius: 10px;
+}
+
+// HEADER & SEARCHBAR 
+.search-header {
+  width: 1000px;
+  text-align: center;
+  margin: 0 auto;
+
+  // github
+  &__logo {
+    width: 170px;
+    margin: 1em 0;
+  }
+
+  &__form {
+    border: 1px solid vars.$primaryColor;
+    border-radius: 3px;
+    margin-bottom: 1em;
+    background-color: vars.$lightColor;
+
+    // input & search icon
+    .ui.input {
+      width: 100%;
+      padding: 1em 1.5em;
+    
+      &.focus>input {
+        padding-left: 3em;
+      }
+    
+      &.input>i.icon {
+        left: 30px;
+      }
+    }
+  }
+
+  &__results {
+    padding: 1em 1.5em;
+    text-align: left;
+    border: 1px solid vars.$primaryColor;
+    border-radius: 3px;
+    background-color: vars.$lightColor;
+  }
+}
+
+
+
+
