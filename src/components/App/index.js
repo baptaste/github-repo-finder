@@ -8,12 +8,16 @@ import SearchBar from '../SearchBar';
 import Message from '../Message';
 import Repos from '../Repos';
 
+import data from '../../data/repos';
+
 // == Composant
+const reposData = data.items;
+
 const App = () => (
   <div className="app">
     <SearchBar />
     <Message />
-    <Repos />
+    <Repos repos={reposData} />
   </div>
 );
 
