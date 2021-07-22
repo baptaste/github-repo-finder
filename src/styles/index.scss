@@ -57,6 +57,10 @@ body {
   border: 1px solid vars.$primaryColor;
   border-radius: 3px;
   background-color: vars.$lightColor;
+
+  &__error {
+    color: rgb(241, 58, 12);
+  }
 }
 
 .repos {

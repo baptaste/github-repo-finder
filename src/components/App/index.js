@@ -9,15 +9,22 @@ import SearchBar from '../SearchBar';
 import Message from '../Message';
 import Repos from '../Repos';
 
-import data from '../../data/repos';
+// import data from '../../data/repos';
 
 // == Composant
-const reposData = data.items;
-const baseUrl = 'https://api.github.com/search/repositories?q=';
+// const reposData = data.items;
+const baseUrl = 'https://api.github.com/search/repositories?q';
 
 const App = () => {
   const [searchValues, setSearchValues] = useState([]);
   const [baseRepos, setBaseRepos] = useState([]);
+  const [totalReposCount, setTotalReposCount] = useState(0);
+  const [currentRepoName, setCurrentRepoName] = useState('react');
+
+  const [isError, setIsError] = useState(false);
+  const [requestError, setRequestError] = useState('error');
+
+  const toggleError = () => setIsError(!isError);
 
   const handleSearchChange = (e) => {
     setSearchValues(e.target.value);
@@ -27,9 +34,16 @@ const App = () => {
     e.preventDefault();
     try {
       const repoQuery = await axios.get(`${baseUrl}${searchValues}`);
+
       setBaseRepos(repoQuery.data.items);
+
+      setTotalReposCount(repoQuery.data.total_count);
+
+      setCurrentRepoName(searchValues);
     }
     catch (error) {
+      toggleError();
+      setRequestError(`Request failed with status code ${error.response.status}`);
       throw new Error('Request failed', error);
     }
     // reset searchValue's state
@@ -43,7 +57,12 @@ const App = () => {
         onSearchChange={handleSearchChange}
         onSearchSubmit={handleSearchSubmit}
       />
-      <Message />
+      <Message
+        repoName={currentRepoName}
+        nbRepos={totalReposCount}
+        isError={isError}
+        errorMessage={requestError}
+      />
       <Repos repos={baseRepos} />
     </div>
   );
