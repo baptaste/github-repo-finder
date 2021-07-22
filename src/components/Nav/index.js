@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Menu } from 'semantic-ui-react';
-import { useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Nav() {
   const items = [
     {
-      key: 'recherche', active: true, name: 'Recherche', pathname: '/',
+      key: 'recherche', active: false, name: 'Recherche', path: '/',
     },
-    { key: 'faq', name: 'FAQ', pathname: '/faq' },
+    {
+      key: 'faq', active: false, name: 'FAQ', path: '/faq',
+    },
   ];
 
-  const history = useHistory();
+  const [isActive, setIsActive] = useState(false);
+  const toggleIsActive = () => setIsActive(!isActive);
 
   return (
     <Menu
-      key={items.key}
       items={items}
-      onClick={() => history.push(`${items.pathname}`)}
-    />
+    >
+      {items.map((item) => (
+        <Menu.Item
+          as={NavLink}
+          to={item.path}
+          key={item.key}
+          onClick={toggleIsActive}
+          active={isActive}
+          name={item.name}
+        />
+      ))}
+    </Menu>
   );
 }
 
