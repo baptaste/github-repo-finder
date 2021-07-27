@@ -5,10 +5,10 @@ import { NavLink } from 'react-router-dom';
 function Nav() {
   const items = [
     {
-      key: 'recherche', active: false, name: 'Recherche', path: '/',
+      key: 'recherche', name: 'Recherche', path: '/',
     },
     {
-      key: 'faq', active: false, name: 'FAQ', path: '/faq',
+      key: 'faq', name: 'FAQ', path: '/faq',
     },
   ];
 

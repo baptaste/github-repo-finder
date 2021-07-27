@@ -1,24 +1,32 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const Repo = ({
-  id, name, description, html_url, owner,
+  id, name, description, html_url, owner, stargazers_count,
 }) => (
   <a href={html_url} target="_blank" rel="noreferrer" key={id}>
-    <Card className="repo">
-      <Image src={owner.avatar_url} wrapped ui={false} />
-      <Card.Content>
-        <Card.Header>{name}</Card.Header>
-        <Card.Meta>
-          <span className="date">{owner.login}</span>
-        </Card.Meta>
-        <Card.Description>
+    <Card
+      className="repo"
+      style={{
+        wordWrap: 'break-word',
+      }}
+      image={owner.avatar_url}
+      header={name}
+      meta={owner.login}
+      description={(
+        <p className="repo__description">
           {description}
-        </Card.Description>
-      </Card.Content>
-    </Card>
+        </p>
+        )}
+      extra={(
+        <p>
+          <Icon name="star" />
+          {stargazers_count} Étoiles
+        </p>
+      )}
+    />
   </a>
 );
 
@@ -27,6 +35,7 @@ Repo.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   html_url: PropTypes.string.isRequired,
+  stargazers_count: PropTypes.number.isRequired,
   owner: PropTypes.shape({
     login: PropTypes.string.isRequired,
     avatar_url: PropTypes.string.isRequired,
