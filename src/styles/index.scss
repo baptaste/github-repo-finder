@@ -21,7 +21,7 @@ body {
   right: 31%;
   top: 15px;
   font-size: 1.3rem;
-} 
+}
 .search-header {
   position: relative;
   width: vars.$componentsWidth;
@@ -47,11 +47,11 @@ body {
       width: 100%;
       padding: 1em 1.5em;
       font-size: vars.$global-fontSize;
-    
+
       &.focus>input {
         padding-left: 3em;
       }
-    
+
       &.input>i.icon {
         left: 30px;
       }
@@ -109,8 +109,6 @@ body {
   width: 290px;
   height: 450px;
   margin: 0 0 3em 0 !important;
-  // word-wrap: break-word !important;
-  // text-overflow: ellipsis !important;
 
   &__description {
     text-overflow: ellipsis !important;
@@ -118,10 +116,6 @@ body {
     overflow: hidden;
   }
 }
-
-// .ui.card>.content>.description {
-//   height: 5px !important;
-// }
 
 .faq {
   width: vars.$componentsWidth;
