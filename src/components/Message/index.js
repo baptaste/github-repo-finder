@@ -7,7 +7,10 @@ const Message = ({
   <div className="message">
     {isError
       ? <p className="message__error">{errorMessage}</p>
-      : <p>{nbRepos} résultats trouvés pour la recherche {repoName}</p>}
+      : <p>
+        <strong>{nbRepos.toLocaleString()} </strong>résultats trouvés pour la recherche
+      <strong> {repoName}</strong>
+      </p>}
   </div>
 );
 

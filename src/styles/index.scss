@@ -29,6 +29,9 @@ body {
   margin: 0 auto;
 
   // github
+  &__btn {
+    border: none;
+  }
   &__logo {
     width: 170px;
     margin: 1em 0;
@@ -80,6 +83,14 @@ body {
   margin: 0 auto 1em !important;
   box-shadow: vars.$boxShadow !important;
   -webkit-box-shadow: vars.$webkit-boxShadow !important;
+
+  &-link {
+    background-color: vars.$lightColor;
+
+    .active {
+      background: rgba(0,0,0,.05);
+    }
+  }
 }
 
 .repos {
@@ -109,11 +120,29 @@ body {
   width: 290px;
   height: 450px;
   margin: 0 0 3em 0 !important;
+  background: vars.$backgroundImg !important;
+  transition: box-shadow 250ms !important;
+
+  .image {
+    width: 70%;
+    height: auto;
+    margin: 0 auto !important;
+  }
+
+  .content {
+    background-color: vars.$lightColor !important;
+  }
 
   &__description {
+    margin-top: 2rem !important;
     text-overflow: ellipsis !important;
-    max-height: 53px !important;
-    overflow: hidden;
+    word-wrap: break-word !important;
+    max-height: 100px !important;
+    overflow-y: scroll;
+  }
+
+  &:hover {
+    box-shadow: vars.$cardShadow !important;
   }
 }
 

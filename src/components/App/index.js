@@ -67,6 +67,7 @@ const App = () => {
       setRequestError(`Request failed with status code ${error.response.status}`);
       throw new Error('Request failed', error);
     }
+    setSearchValues('');
     setIsLoading(false);
   };
 
@@ -111,7 +112,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <Header />
+      <Header resetRepos={getDefaultReposOnLoad} />
       <Route exact path="/">
         <SearchBar
           searchValue={searchValues}

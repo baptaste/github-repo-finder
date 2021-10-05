@@ -5,10 +5,10 @@ import { NavLink } from 'react-router-dom';
 function Nav() {
   const items = [
     {
-      key: 'recherche', name: 'Recherche', path: '/',
+      key: 'recherche', name: 'Recherche', path: '/', active: isActive,
     },
     {
-      key: 'faq', name: 'FAQ', path: '/faq',
+      key: 'faq', name: 'FAQ', path: '/faq', active: isActive,
     },
   ];
 
@@ -17,16 +17,15 @@ function Nav() {
 
   return (
     <Menu
-      items={items}
       className="nav"
     >
       {items.map((item) => (
         <Menu.Item
           as={NavLink}
           to={item.path}
+          exact
           key={item.key}
           onClick={toggleIsActive}
-          active={isActive}
           name={item.name}
         />
       ))}
