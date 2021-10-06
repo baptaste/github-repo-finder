@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 
 const SearchBar = ({
   searchValue, onSearchChange, onSearchSubmit, isLoading,
-}) => (
-  <form
+}) => {
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
+  return (
+    <form
     className="search-header__form"
     onSubmit={onSearchSubmit}
   >
@@ -14,11 +16,12 @@ const SearchBar = ({
       placeholder="Rechercher un repo..."
       focus
       loading={isLoading}
-      value={searchValue}
+      value={searchValue.replace(regex)}
       onChange={onSearchChange}
     />
   </form>
-);
+  )
+};
 
 SearchBar.propTypes = {
   searchValue: PropTypes.string.isRequired,

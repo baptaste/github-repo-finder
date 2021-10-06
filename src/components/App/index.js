@@ -21,7 +21,7 @@ const App = () => {
   const [searchValues, setSearchValues] = useState('');
   const [baseRepos, setBaseRepos] = useState([]);
   const [totalReposCount, setTotalReposCount] = useState(1028313);
-  const [currentRepoName, setCurrentRepoName] = useState('javascript');
+  const [currentRepoName, setCurrentRepoName] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isError, setIsError] = useState(false);
   const [requestError, setRequestError] = useState('error');
@@ -36,23 +36,21 @@ const App = () => {
   // searchbar submit
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    try {
-      const repoQuery = await axios.get(`${baseUrl}${searchValues}&sort=stars&order=desc&page=1&per_page=9`);
+      try {
+        setIsLoading(true);
+        const repoQuery = await axios.get(`${baseUrl}${searchValues}&sort=stars&order=desc&page=1&per_page=9`);
 
-      setBaseRepos(repoQuery.data.items);
-
-      setTotalReposCount(repoQuery.data.total_count);
-
-      setCurrentRepoName(searchValues);
-    }
-    catch (error) {
-      toggleError();
-      setRequestError(`Request failed with status code ${error.response.status}`);
-      throw new Error('Request failed', error);
-    }
-    setIsLoading(false);
+        setBaseRepos(repoQuery.data.items);
+        setTotalReposCount(repoQuery.data.total_count);
+        setCurrentRepoName(searchValues);
+      }
+      catch (error) {
+        toggleError();
+        setRequestError(`Request failed with status code ${error.response.status}`);
+        throw new Error('Request failed', error);
+      }
+      setIsLoading(false);
   };
   // default results on landing
   const getDefaultReposOnLoad = async () => {
@@ -61,6 +59,7 @@ const App = () => {
       const defaultRepos = await axios.get(`${baseUrl}javascript&sort=stars&order=desc&page=1&per_page=9`);
 
       setBaseRepos(defaultRepos.data.items);
+      setTotalReposCount(defaultRepos.data.total_count);
     }
     catch (error) {
       toggleError();
@@ -68,6 +67,7 @@ const App = () => {
       throw new Error('Request failed', error);
     }
     setSearchValues('');
+    setCurrentRepoName('');
     setIsLoading(false);
   };
 
@@ -78,12 +78,15 @@ const App = () => {
 
   // load more results
   const handleShowMoreClick = async () => {
+    // increment currentPage by 1
     setCurrentPage(currentPage + 1);
+    // lets define a default perpage value to 9
+    const perpage = 9;
 
     if (searchValues) {
       try {
         const response = await axios.get(
-          `${baseUrl}${searchValues}&sort=stars&order=desc&page=${currentPage + 1}&per_page=9`,
+          `${baseUrl}${searchValues}&sort=stars&order=desc&page=${currentPage + 1}&per_page=${perpage}`,
         );
         const newBaseRepos = [
           ...baseRepos,
@@ -98,6 +101,7 @@ const App = () => {
       }
     }
 
+    // default, with javascript, perpage is equal to 9
     if (!searchValues) {
       const response = await axios.get(
         `${baseUrl}javascript&sort=stars&order=desc&page=${currentPage + 1}&per_page=9`,
@@ -124,20 +128,25 @@ const App = () => {
           <Loading />
         ) : (
           <>
-            <Message
-              repoName={currentRepoName}
-              nbRepos={totalReposCount}
-              isError={isError}
-              errorMessage={requestError}
-            />
+              <Message
+                searchValues={searchValues}
+                repoName={currentRepoName}
+                nbRepos={totalReposCount}
+                repos={baseRepos}
+                currentPage={currentPage}
+                isError={isError}
+                errorMessage={requestError}
+              />
             <Repos
               repos={baseRepos}
+              nbRepos={totalReposCount}
               handleShowMoreClick={handleShowMoreClick}
+              resetRepos={getDefaultReposOnLoad}
             />
           </>
         ) }
       </Route>
-      <Route path="/faq">
+      <Route exact path="/faq">
         <Faq />
       </Route>
     </div>

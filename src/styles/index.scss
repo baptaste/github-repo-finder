@@ -62,11 +62,10 @@ body {
   }
 }
 
-.message {
+.messages {
   width: vars.$componentsWidth;
   margin: 0 auto;
   padding: 1em 1.5em;
-  text-align: left;
   font-size: vars.$global-fontSize;
   border-radius: 3px;
   background-color: vars.$lightColor;
@@ -75,6 +74,16 @@ body {
 
   &__error {
     color: rgb(241, 58, 12);
+  }
+}
+
+.message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &>p {
+    margin: 0;
   }
 }
 
