@@ -44,6 +44,7 @@ const App = () => {
         setBaseRepos(repoQuery.data.items);
         setTotalReposCount(repoQuery.data.total_count);
         setCurrentRepoName(searchValues);
+        setCurrentPage(1);
       }
       catch (error) {
         toggleError();
@@ -68,6 +69,7 @@ const App = () => {
     }
     setSearchValues('');
     setCurrentRepoName('');
+    setCurrentPage(1);
     setIsLoading(false);
   };
 

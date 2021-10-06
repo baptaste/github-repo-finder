@@ -5,6 +5,7 @@ import Nav from '../Nav';
 
 const Header = ({ resetRepos }) => (
   <header className="search-header">
+    <div className="search-header__title">
     <button type="button" className="search-header__btn" onClick={resetRepos}>
       <img
         src={githubLogo}
@@ -13,6 +14,7 @@ const Header = ({ resetRepos }) => (
       />
     </button>
     <h1 className="sitename">Repo Finder</h1>
+    </div>
     <Nav />
   </header>
 );

@@ -9,7 +9,7 @@ const Faq = () => (
     </li>
     <li className="faq__block">
       <p className="faq__question">Comment faire une recherche ?</p>
-      <p className="faq__anwser">Sur la page recherche, complétez le champ de recherche et valider la recherche.</p>
+      <p className="faq__anwser">Sur la page recherche, complétez le champ de recherche et validez la recherche.</p>
     </li>
     <li className="faq__block">
       <p className="faq__question">Puis-je chercher n'importe quel terme ?</p>

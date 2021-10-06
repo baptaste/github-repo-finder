@@ -12,18 +12,18 @@ const Repos = ({ repos, nbRepos, resetRepos, handleShowMoreClick }) => {
       />
     ))}
     {repos.length === 0 &&
-      <button type="button" onClick={resetRepos} className="repos__show-more-btn">Retour</button>
+      <button type="button" onClick={resetRepos} className="button--main">Retour</button>
     }
     {repos.length !== 0 && nbRepos >= 10 && repos.length !== nbRepos &&
-    <>
-      <button type="button" onClick={handleShowMoreClick} className="repos__show-more-btn">
+    <div className="repos__footer">
+      <button type="button" onClick={handleShowMoreClick} className="button--main">
         Plus de résultats
       </button>
-      <p>{repos.length} sur {nbRepos}</p>
-    </>
+      <p className="repos__footer-index">{repos.length} sur {nbRepos}</p>
+    </div>
     }
     {repos.length !== 0 && repos.length === nbRepos &&
-      <p>Tous les repos sont affichés pour cette recherche.</p>
+      <p>Tous les résultats sont affichés.</p>
     }
   </main>
   )

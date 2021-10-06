@@ -13,7 +13,7 @@ const SearchBar = ({
   >
     <Input
       icon="search"
-      placeholder="Rechercher un repo..."
+      placeholder="Rechercher un repo, un utilisateur..."
       focus
       loading={isLoading}
       value={searchValue.replace(regex)}
