@@ -1,8 +1,8 @@
 # Github Repo Finder
 
-Simple react app that helps you to find any repos presents on github by consuming its API.
+Simple react app that helps you to find any repos or user presents on GitHub.
 
-Build with react (using hooks).
+Build with react (GitHub API).
 
 ## Stack
 

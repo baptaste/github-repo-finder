@@ -18,7 +18,7 @@ import Loading from '../Loading';
 const baseUrl = 'https://api.github.com/search/repositories?q=';
 
 const App = () => {
-  const [searchValues, setSearchValues] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [baseRepos, setBaseRepos] = useState([]);
   const [totalReposCount, setTotalReposCount] = useState(1028313);
   const [currentRepoName, setCurrentRepoName] = useState('');
@@ -26,26 +26,46 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [requestError, setRequestError] = useState('error');
   const [isLoading, setIsLoading] = useState(false);
+  const [tag, setTag] = useState('');
 
   const toggleError = () => setIsError(!isError);
 
   // search value onChange
   const handleSearchChange = (e) => {
-    setSearchValues(e.target.value);
+    setTag('');
+    setSearchValue(e.target.value);
+  };
+  // set tag value onclick and call submit
+  const handleSearchTag = (e, targetTag) => {
+    setSearchValue('');
+    setTag(targetTag);
+
+    handleSearchSubmit(e, targetTag);
   };
   // searchbar submit
-  const handleSearchSubmit = async (e) => {
+  const handleSearchSubmit = async (e, targetTag) => {
     e.preventDefault();
 
       try {
         setIsLoading(true);
-        const repoQuery = await axios.get(`${baseUrl}${searchValues}&sort=stars&order=desc&page=1&per_page=9`);
 
-        setBaseRepos(repoQuery.data.items);
-        setTotalReposCount(repoQuery.data.total_count);
-        setCurrentRepoName(searchValues);
-        setCurrentPage(1);
+        if (searchValue && !tag) {
+          const repoQuery = await axios.get(`${baseUrl}${searchValue}&sort=stars&order=desc&page=1&per_page=9`);
+          setBaseRepos(repoQuery.data.items);
+          setTotalReposCount(repoQuery.data.total_count);
+          setCurrentRepoName(searchValue);
+          setCurrentPage(1);
+        }
+
+        if (targetTag && !searchValue) {
+          const repoQuery = await axios.get(`${baseUrl}${targetTag}&sort=stars&order=desc&page=1&per_page=9`);
+          setBaseRepos(repoQuery.data.items);
+          setTotalReposCount(repoQuery.data.total_count);
+          setCurrentRepoName(targetTag);
+          setCurrentPage(1);
+        }
       }
+
       catch (error) {
         toggleError();
         setRequestError(`Request failed with status code ${error.response.status}`);
@@ -67,7 +87,8 @@ const App = () => {
       setRequestError(`Request failed with status code ${error.response.status}`);
       throw new Error('Request failed', error);
     }
-    setSearchValues('');
+    setSearchValue('');
+    setTag('');
     setCurrentRepoName('');
     setCurrentPage(1);
     setIsLoading(false);
@@ -85,10 +106,10 @@ const App = () => {
     // lets define a default perpage value to 9
     const perpage = 9;
 
-    if (searchValues) {
+    if (currentRepoName) {
       try {
         const response = await axios.get(
-          `${baseUrl}${searchValues}&sort=stars&order=desc&page=${currentPage + 1}&per_page=${perpage}`,
+          `${baseUrl}${currentRepoName}&sort=stars&order=desc&page=${currentPage + 1}&per_page=${perpage}`,
         );
         const newBaseRepos = [
           ...baseRepos,
@@ -104,7 +125,7 @@ const App = () => {
     }
 
     // default, with javascript, perpage is equal to 9
-    if (!searchValues) {
+    if (!currentRepoName) {
       const response = await axios.get(
         `${baseUrl}javascript&sort=stars&order=desc&page=${currentPage + 1}&per_page=9`,
       );
@@ -121,7 +142,8 @@ const App = () => {
       <Header resetRepos={getDefaultReposOnLoad} />
       <Route exact path="/">
         <SearchBar
-          searchValue={searchValues}
+          searchValue={searchValue}
+          onSearchTag={handleSearchTag}
           onSearchChange={handleSearchChange}
           onSearchSubmit={handleSearchSubmit}
           isLoading={isLoading}
@@ -130,15 +152,16 @@ const App = () => {
           <Loading />
         ) : (
           <>
-              <Message
-                searchValues={searchValues}
-                repoName={currentRepoName}
-                nbRepos={totalReposCount}
-                repos={baseRepos}
-                currentPage={currentPage}
-                isError={isError}
-                errorMessage={requestError}
-              />
+          {currentRepoName &&
+            <Message
+              repoName={currentRepoName}
+              nbRepos={totalReposCount}
+              repos={baseRepos}
+              currentPage={currentPage}
+              isError={isError}
+              errorMessage={requestError}
+            />
+          }
             <Repos
               repos={baseRepos}
               nbRepos={totalReposCount}
