@@ -10,4 +10,4 @@ react, react-dom, react-router-dom, semantic-ui, axios
 
 ## Preview
 
-![](preview.png)
+![](preview.jpg)
